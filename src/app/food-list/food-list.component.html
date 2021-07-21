@@ -1,0 +1,49 @@
+<section class="container">
+    <section class="left">
+        <div class="search-container">
+            <p>Search</p>
+            <input type="text" [(ngModel)]="food">
+        </div>
+        <button (click)="viewForm()">Add New Food</button>
+        <div class="form-container">
+            <form *ngIf="addForm" [formGroup]='formGroup' (ngSubmit)="onSubmit()">
+                <div>
+                    <label>Name</label>
+                    <input type="text" formControlName='name'>
+                </div>
+                <div>
+                    <label>Calories</label>
+                    <input type="number" formControlName='calories'>
+                </div>
+                <div>
+                    <label>Image </label>
+                    <input type="text" formControlName='image'>
+                </div>
+                <div>
+                    <button type="submit">Add food</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="food-list-container">
+            <div class="food-container" *ngFor="let food of foodList | filter:'name':food">
+                <img src="{{food.image}}" alt="">
+                <div class="text-container">
+                    <p>{{food.name}} <span>{{food.calories}}</span> </p>
+                    <div class="container-suma">
+                        <button (click)="allCalories(food)">+</button>
+                        <input type="number" [value]="food.quantity">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="right">
+        <h2>Today's Foods {{cal}} cal</h2>
+        <ul>
+            <li *ngFor="let food of foodDay">
+                <p>{{food.name}} x{{food.quantity}}</p>
+            </li>
+        </ul>
+    </section>
+</section>
